@@ -1,0 +1,27 @@
+0
+Salimanov
+Project description
+
+Main Kitchen
+Object description
+kitchen
+modern
+grey,stained
+melamine,mdf,wood
+2-5
+
+Closet
+Object description
+closet
+modern
+grey,stained
+melamine,mdf,wood
+6-11
+
+Another Kitchens
+Object description
+kitchen
+transitional
+grey,white,stained
+melamine,mdf,wood
+12 1
