@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="en" class="a-html"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="author" content="Trillium Kitchens and Baths">
+
+    <title>
+    Trillium Kitchens
+</title>
+
+    
+
+    <meta name="description" content="Trillium Kitchens">
+    <meta name="keywords" content="Trillium Kitchens">
+
+    <meta property="og:title" content="Trillium Kitchens">
+    <meta property="og:image" content="https://trilliumkitchens.com/static/img/K-Slide-3.jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:description" content="Render for customer">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://trilliumkitchens.com/">
+    <meta property="og:site_name" content="Trillium Kitchens And Baths">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="./static/js/a-touch-controls.js"></script>
+    <script src="https://rawgit.com/takahirox/aframe-outline/master/build/aframe-outline.min.js"></script>
+
+
+
+
+    <link rel="stylesheet" href="./static/css/all.min.css">
+    <link rel="stylesheet" href="./static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./static/dist/css/lightbox.min.css">
+    <link rel="stylesheet" href="./static/css/main.css">
+    <link rel="shortcut icon" href="./static/favicon.ico">
+
+
+</head>
+<body class="a-body">
+
+    
+
+    <a-scene renderer="gammaOutput: true" vr-mode-ui="enabled: false" keyboard-shortcuts="enterVR: false" outline="" class="fullscreen" inspector="" screenshot="">
+
+        <a-assets>
+            <a-asset-item id="tree" src="test2.glb"></a-asset-item>
+        </a-assets>
+
+        <a-entity gltf-model="#tree" shadow="receive: true" scale="1 1 1" position="-1 0 -1" rotation="0 90 0" visible=""></a-entity>
+
+        
+            <a-entity light="type: directional; color: #FFF; intensity: 1.25;" position="100 50 0" rotation="" scale="" visible=""></a-entity>
+        
+            <a-entity light="type: directional; color: #FFF; intensity: 1.0;" position="-100 50 0" rotation="" scale="" visible=""></a-entity>
+        
+            <a-entity light="type: directional; color: #FFF; intensity: 0.75;" position="0 50 -100" rotation="" scale="" visible=""></a-entity>
+        
+            <a-entity light="type: directional; color: #FFF; intensity: 0.5;" position="0 50 100" rotation="" scale="" visible=""></a-entity>
+        
+            <a-entity light="type: directional; color: #FFF; intensity: 0.5;" position="0 -50 0" rotation="" scale="" visible=""></a-entity>
+        
+
+        <a-sky color="#def" position="" rotation="" scale="" visible="" material="" geometry=""></a-sky>
+
+        <a-entity id="rig" position="-1 1.6 0" rotation="0 90 0" scale="" visible="">
+            <a-entity camera="" look-controls="reverseMouseDrag: true" wasd-controls="" position="" rotation="" scale="" visible=""></a-entity>
+        </a-entity>
+    <canvas class="a-canvas a-grab-cursor" data-aframe-canvas="true" width="1858" height="952" style="width: 1858px; height: 952px;"></canvas></a-scene>
+
+    <a href="https://trilliumkitchens.com/">
+        <img width="200" height="75" src="./static/svg/logo.svg" style="
+        position: absolute;
+        left:20px;
+        top: 20px;">
+    </a>
+
+    <!--CONTROL-->
+
+    <div style="
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    width: 210px;
+    height: 140px;
+    left: 40px;
+    bottom: 40px">
+
+        <style>
+            .key-panel{
+                margin:1%; width: 31%; height: 47%;
+            }
+            .key-button{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                border-radius: 10%;
+                background-color: rgba(150,150,150,0.75);
+                font-size: 150%;
+                color: whitesmoke;
+            }
+        </style>
+        <div class="key-panel key-button" id="panel-key-cam-up"><i class="fas fa-angle-double-up"></i></div>
+        <div class="key-panel key-button" id="panel-key-w"><i class="fas fa-angle-up"></i></div>
+        <div class="key-panel key-button" id="panel-key-cam-down"><i class="fas fa-angle-double-down"></i></div>
+        <div class="key-panel key-button" id="panel-key-a"><i class="fas fa-angle-left"></i></div>
+        <div class="key-panel key-button" id="panel-key-s"><i class="fas fa-angle-down"></i></div>
+        <div class="key-panel key-button" id="panel-key-d"><i class="fas fa-angle-right"></i></div>
+    </div>
+    <script>
+        var cam=document.getElementById('rig');
+        var timer_is_on=false;
+        var t;
+        var num=0.025;
+
+        function timedCountUp() {
+            cam.object3D.position.y+=num;
+            t=setTimeout("timedCountUp()",15);
+        }
+        function timedCountDown() {
+            cam.object3D.position.y-=num;
+            t=setTimeout("timedCountDown()",15);
+        }
+        function doTimerUp() {
+            if (!timer_is_on) {
+                timer_is_on=true;
+                timedCountUp();
+            }
+        }
+        function doTimerDown() {
+            if (!timer_is_on) {
+                timer_is_on=true;
+                timedCountDown();
+            }
+        }
+        function stopTimer() {
+            clearTimeout(t);
+            timer_is_on=false;
+        }
+
+        let camel=document.getElementById("panel-key-cam-up")
+        camel.onmousedown = function (){doTimerUp()}
+        camel.onmouseup = function (){stopTimer()}
+        camel.ontouchstart = function (){doTimerUp()}
+        camel.ontouchend = function (){stopTimer()}
+        camel.onmouseleave = function (){stopTimer()}
+        camel.ontouchcancel = function (){stopTimer()}
+
+        camel=document.getElementById("panel-key-cam-down")
+        camel.onmousedown = function (){doTimerDown()}
+        camel.onmouseup = function (){stopTimer()}
+        camel.ontouchstart = function (){doTimerDown()}
+        camel.ontouchend = function (){stopTimer()}
+        camel.onmouseleave = function (){stopTimer()}
+        camel.ontouchcancel = function (){stopTimer()}
+
+        function camera_up(){
+            let el=document.getElementById('rig')
+            pos=el.object3D.position.y;
+            el.object3D.position.y=pos+0.5
+        }
+
+        function camera_down(){
+            let el=document.getElementById('rig')
+            pos=el.object3D.position.y;
+            el.object3D.position.y=pos-0.5
+        }
+        function camera_stop(){
+            let el=document.getElementById('rig')
+            pos=el.object3D.position.y;
+            el.object3D.position.y=pos-0.5
+        }
+        function panel_key_down(emu_key){
+            window.dispatchEvent(new KeyboardEvent('keydown',{keyCode: emu_key} )  );
+        }
+        function panel_key_up(emu_key){
+            window.dispatchEvent(new KeyboardEvent('keyup',{keyCode: emu_key} )  );
+        }
+        function bindPanel(id_element,emu_key){
+            let el=document.getElementById(id_element)
+            el.onmousedown = function (){panel_key_down(emu_key)}
+            el.onmouseup = function (){panel_key_up(emu_key)}
+            el.ontouchstart = function (){panel_key_down(emu_key)}
+            el.ontouchend = function (){panel_key_up(emu_key)}
+            el.onmouseleave = function (){panel_key_up(emu_key)}
+            el.ontouchcancel = function (){panel_key_up(emu_key)}
+        }
+        bindPanel('panel-key-w',87)
+        bindPanel('panel-key-a',65)
+        bindPanel('panel-key-s',83)
+        bindPanel('panel-key-d',68)
+    </script>
+
+
+    <script src="./static/js/jquery-3.5.1.min.js"></script>
+    <script src="./static/js/popper.min.js"></script>
+    <script src="./static/js/bootstrap.min.js"></script>
+    <script src="./static/dist/js/lightbox-plus-jquery.min.js"></script>
